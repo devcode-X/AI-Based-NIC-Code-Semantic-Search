@@ -1,112 +1,126 @@
-# AI-Based-NIC-Code-Semantic-Search
-# 🌐 AI-Based NIC Code Semantic Search API  
-**Revolutionizing Industry Classification with AI-Powered Search**  
-_Built with ❤️ by Devansh_Awasthi
----
+# National Industrial Classification (NIC) Code Semantic Search
 
-## 🚀 Overview
+This project provides a semantic search system for National Industrial Classification (NIC) codes, leveraging ModernBERT embeddings and Faiss for efficient similarity search. The backend is powered by FastAPI, offering a robust and fast API, while the frontend provides a user-friendly interface with both text and voice input capabilities.
 
-Traditional keyword-based NIC code search often produces **inaccurate results** and **inefficient navigation**, making it harder for businesses to find the right classification codes.  
-Our **Semantic Search API** uses **AI to understand meaning and context**, delivering highly relevant NIC code results quickly and accurately.
+## Features
 
-### 🧠 Why It’s Unique
-- ✅ **35% accuracy improvement** using semantic understanding  
-- 🗣 **Multilingual & Voice-based support** for inclusive accessibility  
-- 🌍 Handles **complex queries** with ease
+* **ModernBERT-based Semantic Search:** Utilizes `nomic-ai/modernbert-embed-base` for generating high-quality embeddings, enabling accurate semantic search.
+* **Efficient Faiss Indexing:** Employs Faiss for rapid similarity search, ensuring quick retrieval of relevant NIC codes.
+* **FastAPI Backend:** A lightweight and high-performance API built with FastAPI, designed for efficient handling of search queries.
+* **User-Friendly Frontend:** A simple and intuitive webpage with support for both text and voice input, enhancing user experience.
 
----
+## Prerequisites
 
-## 🏗 Technical Architecture
+Before setting up the project, ensure you have the following installed:
 
-| Component         | Description |
-|--------------------|-------------|
-| **Backend**       | FastAPI-based server handling semantic search requests |
-| **Model**         | ModernBERT embeddings fine-tuned on NIC code descriptions |
-| **Vector Search** | Faiss for fast and scalable similarity search |
-| **Context Layer** | Gemini API for contextual query understanding |
-| **Data Source**   | National Industrial Classification (NIC) 2008 dataset |
+* **Python 3.8+**
+* **pip** (Python package manager)
+* **Git** (for cloning the repository)
+* **Node.js** (optional, for frontend modifications)
 
-- ⚡ **High accuracy**, **scalable**, **open source**, and **locally hosted**  
-- 🧪 Fully customizable and can be deployed without internet dependency
+## Setup Instructions
 
----
+1.  **Clone the Repository:**
 
-## ✨ Key Features
+    ```bash
+    git clone [https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git)
+    cd YOUR_REPOSITORY_NAME
+    ```
 
-- 🌐 **Locally Hosted** — Works offline without internet dependency  
-- 🆓 **Open Source** — No usage restrictions, fully customizable  
-- 🧠 **Synonym Recognition** — Matches user intent accurately  
-- 🔌 **Easy API Integration** — Seamlessly integrate with platforms  
-- 💰 **Cost Efficient** — Reduces recurring costs with uninterrupted access
+2.  **Install Backend Dependencies:**
 
----
+    * Create a virtual environment (recommended):
 
-## 🌟 Highlights
+        ```bash
+        python -m venv venv
+        source venv/bin/activate  # On macOS/Linux
+        venv\Scripts\activate  # On Windows
+        ```
 
-- 🗣 **Multilingual & Voice-Based Search** — Accepts queries in multiple Indian and international languages  
-- ⚡ **Very Fast** — Processes queries in **<1 second**  
-- 🎯 **Highly Accurate** — Achieves **98% accuracy** for semantic NIC classification
+    * Install the required Python packages:
 
----
+        ```bash
+        pip install -r requirements.txt
+        ```
 
-## 👥 User Benefits
+3.  **Place Data Files:**
 
-1. **Business Classification & Compliance**  
-   - Helps businesses register under the correct industry category  
-   - Ensures compliance for GST, taxation, and legal documentation  
+    * Ensure that `modernbert_faiss_index.bin` and `combined.csv` are located in the same directory as `app.py`.
 
-2. **Access to Government Schemes & Incentives**  
-   - Many benefits are industry-specific and require NIC classification  
-   - Enables MSME scheme eligibility  
+## Running the Backend (FastAPI)
 
-3. **Improved Business Insights & Market Research**  
-   - Aids market analysis, benchmarking, and investment planning  
+1.  Start the FastAPI server:
 
-4. **Ease of Banking & Financial Transactions**  
-   - Required for loan applications, financial assistance, and credit approvals  
+    ```bash
+    uvicorn app:app --host 0.0.0.0 --port 9040
+    ```
 
----
+    * The API will be accessible at: `http://127.0.0.1:9040`
+    * Swagger UI documentation: `http://127.0.0.1:9040/docs`
 
-## 📈 Scalability & Impact
+## Running the Frontend
 
-### 🔁 Scalability
-- Batch processing support for multiple queries  
-- Integration-ready for government and enterprise systems
+1.  Open `index.html` in your web browser.
 
-### 🌍 Impact
-- ⚡ Reduces manual effort in NIC code selection  
-- 📊 Improves accuracy with AI  
-- 🌐 Enhances accessibility with multilingual support  
-- 🧠 Handles large-scale queries efficiently  
-- ⚡ Instant classification results
+    * The frontend will interact with the backend API to perform search queries.
 
----
+## API Endpoints
 
-## 🧭 Future Roadmap
+### 1. Search Endpoint
 
-We’re constantly improving. Upcoming enhancements include:
+* **URL:** `/search`
+* **Method:** `POST`
+* **Request Format (JSON):**
 
-- 📝 **OCR Integration** — Extract NIC codes from documents  
-- 📚 **Adaptive Learning** — Continuous model improvement  
-- 🧪 **Batch Query Support** — Handle multiple requests simultaneously  
-- 🔄 **Real-Time Updates** — Stay aligned with evolving NIC classifications
+    ```json
+    {
+      "query": "Your search term",
+      "k": 5
+    }
+    ```
 
-👉 Check out the repo here: [GitHub Repository](https://github.com/gitnoob101/nic_code_classifier)
+* **Response Example:**
 
----
+    ```json
+    {
+      "query": "Your search term",
+      "translated_query": "Translated text",
+      "results": [
+        {
+          "S.No.": 1,
+          "Description": "Industry description",
+          "Class": "123",
+          "Group": "456",
+          "Sub Class": "789"
+        },
+        // ... more results
+      ]
+    }
+    ```
 
+### 2. Root Endpoint
 
----
+* **URL:** `/`
+* **Method:** `GET`
+* **Response:**
 
-## 📝 License
+    ```json
+    {
+      "message": "Welcome to the Semantic Search API!"
+    }
+    ```
 
-This project is **Open Source**. You’re free to use, modify, and deploy it as per your requirements.
+## Troubleshooting
 
----
+* **Faiss Index Not Found:** Verify that `modernbert_faiss_index.bin` exists in the correct directory.
+* **CORS Issues:** Ensure that the API allows requests from your frontend's origin.
+* **Missing Dependencies:** Re-run `pip install -r requirements.txt`.
+* **Port Conflicts:** Change the port in `uvicorn app:app --port 9040` to an available port.
 
-## ⭐ Support
+## Contributing
 
-If you like this project, please consider giving it a **star ⭐ on GitHub** and sharing it with others!
+Contributions are welcome! Feel free to fork the repository, submit issues, or open pull requests.
 
----
+## License
 
+This project is licensed under the MIT License.
